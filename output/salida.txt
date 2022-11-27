@@ -1,0 +1,2 @@
+You've declared some let type variables x with value 3, also y with value (5)+3
+You've assigned the value 2+2 to the variable x

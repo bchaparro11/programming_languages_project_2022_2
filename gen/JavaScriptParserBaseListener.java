@@ -1636,6 +1636,18 @@ public class JavaScriptParserBaseListener implements JavaScriptParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterElse(JavaScriptParser.ElseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElse(JavaScriptParser.ElseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterComma(JavaScriptParser.CommaContext ctx) { }
 	/**
 	 * {@inheritDoc}

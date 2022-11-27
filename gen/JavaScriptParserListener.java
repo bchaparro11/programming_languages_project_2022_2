@@ -1483,6 +1483,16 @@ public interface JavaScriptParserListener extends ParseTreeListener {
 	 */
 	void exitEos(JavaScriptParser.EosContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JavaScriptParser#else}.
+	 * @param ctx the parse tree
+	 */
+	void enterElse(JavaScriptParser.ElseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JavaScriptParser#else}.
+	 * @param ctx the parse tree
+	 */
+	void exitElse(JavaScriptParser.ElseContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JavaScriptParser#comma}.
 	 * @param ctx the parse tree
 	 */

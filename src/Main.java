@@ -61,11 +61,20 @@ public class Main {
             try{
                 reader = new BufferedReader(new FileReader("output/salida.txt"));
                 String line = reader.readLine();
-                line = line.replace("*"," Times ");
-                line = line.replace("("," Opening Bracket ");
-                line = line.replace(")"," Closing Bracket ");
                 //Bucle para leer todas las lineas
                 while (line != null){
+                    //Correciones sobre como se mencionan algunos caracteres
+                    line = line.replace("*"," Times ");
+                    line = line.replace("("," Opening Bracket ");
+                    line = line.replace(")"," Closing Bracket ");
+                    line = line.replace(">=", " Is Greater Than Or Equal To ");
+                    line = line.replace(">", " Is Greater Than ");
+                    line = line.replace("<=", " Is Less Than Or Equal To ");
+                    line = line.replace("<", " Is Less Than ");
+                    line = line.replace("==", " Is Equal to ");
+                    line = line.replace("!=", " Is Not Equal To ");
+                    //Tomar una pausa despues del IF
+                    line = line.replace("IF", " IF, ");
                     // Speaks the given text
                     // until the queue is empty.
                     synthesizer.speakPlainText(

@@ -883,6 +883,12 @@ public interface JavaScriptParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEos(JavaScriptParser.EosContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JavaScriptParser#else}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElse(JavaScriptParser.ElseContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JavaScriptParser#comma}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

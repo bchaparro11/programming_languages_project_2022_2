@@ -142,7 +142,7 @@ expressionStatement
     ;
 
 ifStatement
-    : If '(' expressionSequence ')' statement (Else statement)?
+    : If '(' expressionSequence ')' statement (else statement)?
     ;
 
 
@@ -522,6 +522,10 @@ eos
     | EOF
     | {this.lineTerminatorAhead()}?
     | {this.closeBrace()}?
+    ;
+
+else
+    : Else
     ;
 
 comma

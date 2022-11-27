@@ -93,8 +93,14 @@ public class Traduccion extends JavaScriptParserBaseListener{
     public void enterAssignmentExpression(JavaScriptParser.AssignmentExpressionContext ctx){
         String traduccion = new String();
 
-        //Parte inicial de la traduccion
-        traduccion += "You've assigned the value ";
+        //Ver si es un string individual el que se esta asignando a la variable
+        if (ctx.singleExpression(1).getText().charAt(0) == '\"'){
+            //Parte inicial de la traduccion
+            traduccion += "You've assigned the string ";
+        } else {
+            //Parte inicial de la traduccion
+            traduccion += "You've assigned the value ";
+        }
 
         //Imprimir la expresion a asignar
         traduccion += ctx.singleExpression(1).getText();
@@ -111,6 +117,69 @@ public class Traduccion extends JavaScriptParserBaseListener{
         }catch (Exception e){
             throw new RuntimeException(e);
         }
+    }
+
+    //Entrar a una estructura condicional IF
+    @Override
+    public void enterIfStatement(JavaScriptParser.IfStatementContext ctx){
+        String traduccion = new String();
+
+        //Verificar si es IF o solo IF-ELSE
+        if (ctx.else_() == null){
+            //Entraste a un if con cierta condicion
+            traduccion += "You just got in an IF statement, with the condition ";
+        } else {
+            //Entraste a un if con cierta condicion
+            traduccion += "You just got in an IF-ELSE statement, with the condition ";
+        }
+
+        //Agregar la expresion condicional
+        traduccion += ctx.expressionSequence().getText() + "\n";
+
+        //Decir que inician los substatements
+        traduccion += "The IF sub-statements are: ";
+
+        //Traer instancia para escribir de salida
+        try{
+            Escritor.getInstance().escribir(traduccion+"\n");
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    //En caso de entrar a un else
+    @Override
+    public void enterElse(JavaScriptParser.ElseContext ctx){
+        String traduccion = new String();
+        //Decir que termino el if
+        traduccion += "The IF sub-statements are over \n";
+
+        //Decir que inicio un else
+        traduccion += "The ELSE sub-statements are:";
+
+        //Traer instancia para escribir de salida
+        try{
+            Escritor.getInstance().escribir(traduccion+"\n");
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    //Salir de la estructura IF,  IF-ELSE
+    @Override
+    public void exitIfStatement(JavaScriptParser.IfStatementContext ctx){
+        String traduccion = new String();
+
+        //Decir que termino la estructura condicional
+        traduccion += "The conditional structure is over";
+
+        //Traer instancia para escribir de salida
+        try{
+            Escritor.getInstance().escribir(traduccion+"\n");
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

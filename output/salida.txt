@@ -1,12 +1,8 @@
-A FOR loop will start 
-The counter variable is x=0
-The condition of the FOR loop is x<9
-After each iteration x++
-The FOR loop substatements are: 
-You've assigned the value str+x to the variable str
-You've assigned the value str+z to the variable str
-You just got in an IF statement, with the condition x>=10
-The IF substatements are: 
-You've assigned the string "yoooooo what's up buddy" to the variable x
-The conditional structure is over
-The FOR loop has ended
+A WHILE loop will start, it will repeat as long as the condition x>5 holds true
+The WHILE loop substatements are:
+    You just got in an IF statement, with the condition x<8
+    The IF substatements are: 
+        You assign the value z+5 to the variable z
+    The conditional IF structure is over
+    You assign the value x+1 to the variable x
+The WHILE loop substatements are over

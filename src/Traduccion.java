@@ -1,5 +1,8 @@
 public class Traduccion extends JavaScriptParserBaseListener{
 
+    //Variable para contar espacios de indentacion en el texto de salida
+    Integer contIndent = 0;
+
     // Declaracion de una variable
     @Override
     public void enterVariableDeclarationList(JavaScriptParser.VariableDeclarationListContext ctx){
@@ -8,8 +11,14 @@ public class Traduccion extends JavaScriptParserBaseListener{
         //Verificar si viene de una sentencia for, para no imprimir nada en ese caso
         if( ! (ctx.getParent() instanceof JavaScriptParser.ForStatementContext) ) {
 
+            //Calcular espacios de indentacion:
+            String indentSpaces = new String();
+            for (int i = 0; i < contIndent; i++) {
+                indentSpaces += " ";
+            }
+
             //Parte inicial de la traduccion
-            traduccion += "You've declared ";
+            traduccion += indentSpaces + "You declare ";
 
             //Ver si declaro una constante o una
             if (ctx.varModifier().getText().compareTo("const") == 0) {
@@ -106,13 +115,20 @@ public class Traduccion extends JavaScriptParserBaseListener{
 
         //Verificar si viene de una sentencia for, para no imprimir nada en ese caso
         if( ! (ctx.getParent().getParent() instanceof JavaScriptParser.ForStatementContext) ){
+
+            //Calcular espacios de indentacion:
+            String indentSpaces = new String();
+            for (int i = 0; i < contIndent; i++) {
+                indentSpaces += " ";
+            }
+
             //Ver si es un string individual el que se esta asignando a la variable
             if (ctx.singleExpression(1).getText().charAt(0) == '\"'){
                 //Parte inicial de la traduccion
-                traduccion += "You've assigned the string ";
+                traduccion += indentSpaces + "You assign the string ";
             } else {
                 //Parte inicial de la traduccion
-                traduccion += "You've assigned the value ";
+                traduccion += indentSpaces + "You assign the value ";
             }
 
             //Imprimir la expresion a asignar
@@ -138,20 +154,29 @@ public class Traduccion extends JavaScriptParserBaseListener{
     public void enterIfStatement(JavaScriptParser.IfStatementContext ctx){
         String traduccion = new String();
 
+        //Calcular espacios de indentacion:
+        String indentSpaces = new String();
+        for (int i = 0; i < contIndent; i++) {
+            indentSpaces += " ";
+        }
+
         //Verificar si es IF o solo IF-ELSE
         if (ctx.else_() == null){
             //Entraste a un if con cierta condicion
-            traduccion += "You just got in an IF statement, with the condition ";
+            traduccion += indentSpaces + "You just got in an IF statement, with the condition ";
         } else {
             //Entraste a un if con cierta condicion
-            traduccion += "You just got in an IF-ELSE statement, with the condition ";
+            traduccion += indentSpaces + "You just got in an IF ELSE statement, with the condition ";
         }
 
         //Agregar la expresion condicional
         traduccion += ctx.expressionSequence().getText() + "\n";
 
         //Decir que inician los substatements
-        traduccion += "The IF substatements are: ";
+        traduccion += indentSpaces + "The IF substatements are: ";
+
+        //Aumentar la indentacion para que se aplique a los substatements
+        contIndent = contIndent + 4;
 
         //Traer instancia para escribir de salida
         try{
@@ -165,11 +190,24 @@ public class Traduccion extends JavaScriptParserBaseListener{
     @Override
     public void enterElse(JavaScriptParser.ElseContext ctx){
         String traduccion = new String();
+
+        //Disminuir la indentacion ya que se cerro el if
+        contIndent = contIndent - 4;
+
+        //Calcular espacios de indentacion:
+        String indentSpaces = new String();
+        for (int i = 0; i < contIndent; i++) {
+            indentSpaces += " ";
+        }
+
         //Decir que termino el if
-        traduccion += "The IF substatements are over \n";
+        traduccion += indentSpaces + "The IF substatements are over \n";
 
         //Decir que inicio un else
-        traduccion += "The ELSE substatements are:";
+        traduccion += indentSpaces + "The ELSE substatements are:";
+
+        //Aumentar la indentacion ya que se abrio el else
+        contIndent = contIndent + 4;
 
         //Traer instancia para escribir de salida
         try{
@@ -184,8 +222,23 @@ public class Traduccion extends JavaScriptParserBaseListener{
     public void exitIfStatement(JavaScriptParser.IfStatementContext ctx){
         String traduccion = new String();
 
-        //Decir que termino la estructura condicional
-        traduccion += "The conditional structure is over";
+        //Disminuir la indentacion ya que se cerro la estructura condicional
+        contIndent = contIndent - 4;
+
+        //Calcular espacios de indentacion:
+        String indentSpaces = new String();
+        for (int i = 0; i < contIndent; i++) {
+            indentSpaces += " ";
+        }
+
+        //Decir que termino la estructura condicional verificando si es un IF o un IF ELSE
+        if (ctx.else_() == null){
+            //Entraste a un if con cierta condicion
+            traduccion += indentSpaces + "The conditional IF structure is over";
+        } else {
+            //Entraste a un if else con cierta condicion
+            traduccion += indentSpaces + "The conditional IF ELSE structure is over";
+        }
 
         //Traer instancia para escribir de salida
         try{
@@ -200,8 +253,14 @@ public class Traduccion extends JavaScriptParserBaseListener{
     public void enterWhileStatement(JavaScriptParser.WhileStatementContext ctx){
         String traduccion = new String();
 
+        //Calcular espacios de indentacion:
+        String indentSpaces = new String();
+        for (int i = 0; i < contIndent; i++) {
+            indentSpaces += " ";
+        }
+
         //Decir que se hay una instruccion while
-        traduccion += "A WHILE loop will start, it will repeat as long as the condition ";
+        traduccion += indentSpaces + "A WHILE loop will start, it will repeat as long as the condition ";
 
         //Decir la condicion
         traduccion += ctx.expressionSequence().getText();
@@ -210,7 +269,10 @@ public class Traduccion extends JavaScriptParserBaseListener{
         traduccion += " holds true\n";
 
         //Decir que inician los substatements
-        traduccion += "The WHILE loop substatements are:";
+        traduccion += indentSpaces + "The WHILE loop substatements are:";
+
+        //Aumentar la indentacion ya que se abrio el while
+        contIndent = contIndent + 4;
 
         //Traer instancia para escribir de salida
         try{
@@ -226,8 +288,17 @@ public class Traduccion extends JavaScriptParserBaseListener{
     public void exitWhileStatement(JavaScriptParser.WhileStatementContext ctx){
         String traduccion = new String();
 
+        //Disminuir la indentacion ya que se cerro el while
+        contIndent = contIndent - 4;
+
+        //Calcular espacios de indentacion:
+        String indentSpaces = new String();
+        for (int i = 0; i < contIndent; i++) {
+            indentSpaces += " ";
+        }
+
         //Decir que finalizan los substatements del while
-        traduccion += "The WHILE loop substatements are over";
+        traduccion += indentSpaces + "The WHILE loop substatements are over";
 
         //Traer instancia para escribir de salida
         try{
@@ -242,8 +313,14 @@ public class Traduccion extends JavaScriptParserBaseListener{
     public void enterForStatement(JavaScriptParser.ForStatementContext ctx){
         String traduccion = new String();
 
+        //Calcular espacios de indentacion:
+        String indentSpaces = new String();
+        for (int i = 0; i < contIndent; i++) {
+            indentSpaces += " ";
+        }
+
         //Decir que se hay una instruccion for
-        traduccion += "A FOR loop will start \n";
+        traduccion += indentSpaces + "A FOR loop will start. ";
 
         //Verificar si la variable del contador se define
         //o solo es una asignacion
@@ -252,29 +329,45 @@ public class Traduccion extends JavaScriptParserBaseListener{
             //Decir cual variable se usara como contador
             traduccion += "The counter variable is " + ctx.variableDeclarationList().variableDeclaration(0).assignable().getText();
             traduccion += " starting with value " +  ctx.variableDeclarationList().variableDeclaration(0).singleExpression().getText();
+
+            //Un punto y espacio
+            traduccion += ". ";
+
+            //Indicar la condicion de parada
+            traduccion += "The condition of the FOR loop is " + ctx.expressionSequence(0).getText();
+
+            //Un punto y espacio
+            traduccion += ". ";
+
+            //Decir el paso del for
+            traduccion += "After each iteration " + ctx.expressionSequence(1).getText();
+
         } else {
             //Entonces es una asignacion solamente
             traduccion += "The counter variable is " + ctx.expressionSequence(0).singleExpression(0).getText();
+
+            //Un punto y espacio
+            traduccion += ". ";
+
+            //Indicar la condicion de parada
+            traduccion += "The condition of the FOR loop is " + ctx.expressionSequence(1).getText();
+
+            //Un punto y espacio
+            traduccion += ". ";
+
+            //Decir el paso del for
+            traduccion += "After each iteration " + ctx.expressionSequence(2).getText();
         }
-
-        //Salto de linea despues de lo anterior
-        traduccion += "\n";
-
-        //Indicar la condicion de parada
-        traduccion += "The condition of the FOR loop is " + ctx.expressionSequence(1).getText();
-
-        //Salto de linea despues de lo anterior
-        traduccion += "\n";
-
-        //Decir el paso del for
-        traduccion += "After each iteration " + ctx.expressionSequence(2).getText();
 
         //Salto de linea despues de lo anterior
         traduccion += "\n";
 
         //Decir que inician los subtatements del for
         //Traer instancia para escribir de salida
-        traduccion += "The FOR loop substatements are: ";
+        traduccion += indentSpaces + "The FOR loop substatements are: ";
+
+        //Aumentar la indentacion ya que se abrio el for
+        contIndent = contIndent + 4;
 
         try{
             Escritor.getInstance().escribir(traduccion+"\n");
@@ -287,8 +380,17 @@ public class Traduccion extends JavaScriptParserBaseListener{
     public void exitForStatement(JavaScriptParser.ForStatementContext ctx){
         String traduccion = new String();
 
+        //Disminuir la indentacion ya que se cerro el for
+        contIndent = contIndent - 4;
+
+        //Calcular espacios de indentacion:
+        String indentSpaces = new String();
+        for (int i = 0; i < contIndent; i++) {
+            indentSpaces += " ";
+        }
+
         //Mencionar que se termino el bucle for
-        traduccion += "The FOR loop has ended";
+        traduccion += indentSpaces + "The FOR loop has ended";
 
         try{
             Escritor.getInstance().escribir(traduccion+"\n");

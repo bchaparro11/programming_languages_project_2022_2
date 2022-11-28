@@ -1,8 +1,6 @@
-for (x = 0; x < 9; x++) {
-  str = str + x;
-  str = str + z;
-
-  if(x >= 10){
-      x = "What's up buddy"
-  }
+while (x>5){
+    if (x < 8){
+        z = z + 5
+    }
+    x = x + 1
 }

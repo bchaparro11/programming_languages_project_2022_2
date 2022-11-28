@@ -1,1 +1,11 @@
-x = callMyFriend("Pedro")
+let x = 2
+let y
+
+while (x < 3){
+    while (y < 2){
+        y = y + 1
+        for (let z = 1; z < 2; z++){
+            x = "Tola y maruja"
+        }
+    }
+}

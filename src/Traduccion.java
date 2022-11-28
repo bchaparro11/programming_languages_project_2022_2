@@ -160,13 +160,29 @@ public class Traduccion extends JavaScriptParserBaseListener{
             indentSpaces += " ";
         }
 
-        //Verificar si es IF o solo IF-ELSE
-        if (ctx.else_() == null){
-            //Entraste a un if con cierta condicion
-            traduccion += indentSpaces + "You just got in an IF statement, with the condition ";
+        //Verificar si este if esta anidado en algun ambito
+        if (contIndent/4 > 0){
+            // Si esta anidado
+
+            //Verificar si es IF o solo IF-ELSE
+            if (ctx.else_() == null){
+                //Entraste a un if con cierta condicion
+                traduccion += indentSpaces + "An IF statement nested at level " + contIndent/4 + ", with the condition ";
+            } else {
+                //Entraste a un if con cierta condicion
+                traduccion += indentSpaces + "An IF ELSE statement nested at level " + contIndent/4 + ", with the condition ";
+            }
         } else {
-            //Entraste a un if con cierta condicion
-            traduccion += indentSpaces + "You just got in an IF ELSE statement, with the condition ";
+            //Si no esta anidado
+
+            //Verificar si es IF o solo IF-ELSE
+            if (ctx.else_() == null){
+                //Entraste a un if con cierta condicion
+                traduccion += indentSpaces + "You just got in an IF statement, with the condition ";
+            } else {
+                //Entraste a un if con cierta condicion
+                traduccion += indentSpaces + "You just got in an IF ELSE statement, with the condition ";
+            }
         }
 
         //Agregar la expresion condicional
@@ -200,11 +216,23 @@ public class Traduccion extends JavaScriptParserBaseListener{
             indentSpaces += " ";
         }
 
-        //Decir que termino el if
-        traduccion += indentSpaces + "The IF substatements are over \n";
+        //Verificar en que nivel de indentacion esta la sentencia
+        if (contIndent/4 > 0){
+            //Si esta indentado
+            //Decir que termino el if
+            traduccion += indentSpaces + "The level "+ contIndent/4 +" IF substatements are over \n";
 
-        //Decir que inicio un else
-        traduccion += indentSpaces + "The ELSE substatements are:";
+            //Decir que inicio un else
+            traduccion += indentSpaces + "The level "+ contIndent/4 +" ELSE substatements are:";
+
+        } else {
+            //Si no esta indentado
+            //Decir que termino el if
+            traduccion += indentSpaces + "The IF substatements are over \n";
+
+            //Decir que inicio un else
+            traduccion += indentSpaces + "The ELSE substatements are:";
+        }
 
         //Aumentar la indentacion ya que se abrio el else
         contIndent = contIndent + 4;
@@ -231,13 +259,28 @@ public class Traduccion extends JavaScriptParserBaseListener{
             indentSpaces += " ";
         }
 
-        //Decir que termino la estructura condicional verificando si es un IF o un IF ELSE
-        if (ctx.else_() == null){
-            //Entraste a un if con cierta condicion
-            traduccion += indentSpaces + "The conditional IF structure is over";
+        //Verificar en que nivel de indentacion esta la sentencia
+        if (contIndent/4 > 0){
+            //Si esta anidado
+            //Decir que termino la estructura condicional verificando si es un IF o un IF ELSE
+            if (ctx.else_() == null){
+                //Entraste a un if con cierta condicion
+                traduccion += indentSpaces + "The level " + contIndent/4 + " conditional IF structure is over";
+            } else {
+                //Entraste a un if else con cierta condicion
+                traduccion += indentSpaces + "The level " + contIndent/4 + " conditional IF ELSE structure is over";
+            }
+
         } else {
-            //Entraste a un if else con cierta condicion
-            traduccion += indentSpaces + "The conditional IF ELSE structure is over";
+            //No esta anidado
+            //Decir que termino la estructura condicional verificando si es un IF o un IF ELSE
+            if (ctx.else_() == null){
+                //Entraste a un if con cierta condicion
+                traduccion += indentSpaces + "The conditional IF structure is over";
+            } else {
+                //Entraste a un if else con cierta condicion
+                traduccion += indentSpaces + "The conditional IF ELSE structure is over";
+            }
         }
 
         //Traer instancia para escribir de salida
@@ -259,8 +302,18 @@ public class Traduccion extends JavaScriptParserBaseListener{
             indentSpaces += " ";
         }
 
-        //Decir que se hay una instruccion while
-        traduccion += indentSpaces + "A WHILE loop will start, it will repeat as long as the condition ";
+        //Verificar en que nivel de indentacion esta la sentencia
+        if (contIndent/4 > 0){
+            // Si esta anidado
+            //Decir que se hay una instruccion while
+            traduccion += indentSpaces + "A WHILE loop nested at level "+ contIndent/4 +" will start, it will repeat as long as the condition ";
+
+        } else {
+            // Si no esta anidado
+            //Decir que se hay una instruccion while
+            traduccion += indentSpaces + "A WHILE loop will start, it will repeat as long as the condition ";
+
+        }
 
         //Decir la condicion
         traduccion += ctx.expressionSequence().getText();
@@ -297,8 +350,17 @@ public class Traduccion extends JavaScriptParserBaseListener{
             indentSpaces += " ";
         }
 
-        //Decir que finalizan los substatements del while
-        traduccion += indentSpaces + "The WHILE loop substatements are over";
+        //Verificar en que nivel de indentacion esta la sentencia
+        if (contIndent/4 > 0){
+            //Si esta anidado
+            //Decir que finalizan los substatements del while
+            traduccion += indentSpaces + "The level "+ contIndent/4 + " WHILE loop substatements are over";
+
+        } else{
+            //Si no esta anidado
+            //Decir que finalizan los substatements del while
+            traduccion += indentSpaces + "The WHILE loop substatements are over";
+        }
 
         //Traer instancia para escribir de salida
         try{
@@ -319,8 +381,17 @@ public class Traduccion extends JavaScriptParserBaseListener{
             indentSpaces += " ";
         }
 
-        //Decir que se hay una instruccion for
-        traduccion += indentSpaces + "A FOR loop will start. ";
+        //Verificar en que nivel de indentacion esta la sentencia
+        if (contIndent/4 > 0){
+            //Si esta indentado
+            //Decir que se hay una instruccion for
+            traduccion += indentSpaces + "A FOR loop nested at level "+ contIndent/4  +" will start. ";
+
+        } else {
+            //Si no esta indentado
+            //Decir que se hay una instruccion for
+            traduccion += indentSpaces + "A FOR loop will start. ";
+        }
 
         //Verificar si la variable del contador se define
         //o solo es una asignacion
@@ -389,8 +460,17 @@ public class Traduccion extends JavaScriptParserBaseListener{
             indentSpaces += " ";
         }
 
-        //Mencionar que se termino el bucle for
-        traduccion += indentSpaces + "The FOR loop has ended";
+        //Verificar en que nivel de indentacion esta la sentencia
+        if (contIndent/4 > 0){
+            //Si esta anidado
+            //Mencionar que se termino el bucle for
+            traduccion += indentSpaces + "The level "+contIndent/4+" FOR loop has ended";
+
+        } else {
+            //Si no esta anidado
+            //Mencionar que se termino el bucle for
+            traduccion += indentSpaces + "The FOR loop has ended";
+        }
 
         try{
             Escritor.getInstance().escribir(traduccion+"\n");

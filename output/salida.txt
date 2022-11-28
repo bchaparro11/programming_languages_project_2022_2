@@ -1,1 +1,13 @@
-You assign the value callMyFriend("Pedro") to the variable x
+You declare a let type variable x with value 2
+You declare a let type variable y
+A WHILE loop will start, it will repeat as long as the condition x<3 holds true
+The WHILE loop substatements are:
+    A WHILE loop nested at level 1 will start, it will repeat as long as the condition y<2 holds true
+    The WHILE loop substatements are:
+        You assign the value y+1 to the variable y
+        A FOR loop nested at level 2 will start. The counter variable is z starting with value 1. The condition of the FOR loop is z<2. After each iteration z++
+        The FOR loop substatements are: 
+            You assign the string "Tola y maruja" to the variable x
+        The level 2 FOR loop has ended
+    The level 1 WHILE loop substatements are over
+The WHILE loop substatements are over

@@ -1,8 +1,5 @@
-let x = 4
-const z = 5
+let z
 
-while (x < 5){
-    console.log(z)
-    console.log("Hello world")
-    x = x + 1
+for(z = 0 ; z <= 7 ; z++){
+    z = 3 + 2 * 5
 }

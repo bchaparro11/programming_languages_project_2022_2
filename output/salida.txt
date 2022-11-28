@@ -1,8 +1,5 @@
-You declare a let type variable x with value 4
-You declare a constant z with value 5
-A WHILE loop will start, it will repeat as long as the condition x<5 holds true
-The WHILE loop substatements are:
-    You print in console the value z
-    You print in console the string value "Hello world"
-    You assign the value x+1 to the variable x
-The WHILE loop substatements are over
+You declare a let type variable z
+A FOR loop will start. The counter variable is z=0. The condition of the FOR loop is z<=7. After each iteration z++
+The FOR loop substatements are: 
+    You assign the value 3+2*5 to the variable z
+The FOR loop has ended

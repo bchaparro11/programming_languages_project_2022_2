@@ -1,8 +1,1 @@
-A WHILE loop will start, it will repeat as long as the condition x>5 holds true
-The WHILE loop substatements are:
-    You just got in an IF statement, with the condition x<8
-    The IF substatements are: 
-        You assign the value z+5 to the variable z
-    The conditional IF structure is over
-    You assign the value x+1 to the variable x
-The WHILE loop substatements are over
+You assign the value callMyFriend("Pedro") to the variable x

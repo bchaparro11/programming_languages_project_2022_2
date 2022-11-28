@@ -1,0 +1,63 @@
+EJEMPLO 1: ASIGNACION y CONDICIONAL
+let x = 4, z = 9
+const c = 3
+
+if (x >= 4){
+    console.log("Good Morning World")
+}
+
+RESULTADO ESPERADO:
+You declare some let type variables x with value 4, also z with value 9
+You declare a constant c with value 3
+You just got in an IF statement, with the condition x>=4
+The IF substatements are:
+    You print in console the string value "Good Morning World"
+The conditional IF structure is over
+
+
+EJEMPLO 2: DECLARACION / ASIGNACION y un FOR
+let z
+
+for(z = 0 ; z <= 7 ; z++){
+    z = 3 + 2 * 5
+}
+
+RESULTADO ESPERADO:
+You declare a let type variable z
+A FOR loop will start. The counter variable is z=0. The condition of the FOR loop is z<=7. After each iteration z++
+The FOR loop substatements are:
+    You assign the value 3+2*5 to the variable z
+The FOR loop has ended
+
+EJEMPLO 3: ANIDACION DE SENTENCIAS
+let x = 0
+
+while (x < 8){
+
+    if ( x == 7 ){
+        console.log("Last iteration")
+        x = 8
+    } else {
+        if (x < 7){
+            x = x + 1
+        }
+    }
+}
+
+RESULTADO ESPERADO:
+You declare a let type variable x with value 0
+A WHILE loop will start, it will repeat as long as the condition x<8 holds true
+The WHILE loop substatements are:
+    An IF ELSE statement nested at level 1, with the condition x==7
+    The IF substatements are:
+        You print in console the string value "Last iteration"
+        You assign the value 8 to the variable x
+    The level 1 IF substatements are over
+    The level 1 ELSE substatements are:
+        An IF statement nested at level 2, with the condition x<7
+        The IF substatements are:
+            You assign the value x+1 to the variable x
+        The level 2 conditional IF structure is over
+    The level 1 conditional IF ELSE structure is over
+The WHILE loop substatements are over
+

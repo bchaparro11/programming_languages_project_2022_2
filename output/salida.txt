@@ -1,5 +1,15 @@
-You declare a let type variable z
-A FOR loop will start. The counter variable is z=0. The condition of the FOR loop is z<=7. After each iteration z++
-The FOR loop substatements are: 
-    You assign the value 3+2*5 to the variable z
-The FOR loop has ended
+You declare a let type variable x with value 0
+A WHILE loop will start, it will repeat as long as the condition x<8 holds true
+The WHILE loop substatements are:
+    An IF ELSE statement nested at level 1, with the condition x==7
+    The IF substatements are: 
+        You print in console the string value "Last iteration"
+        You assign the value 8 to the variable x
+    The level 1 IF substatements are over 
+    The level 1 ELSE substatements are:
+        An IF statement nested at level 2, with the condition x<7
+        The IF substatements are: 
+            You assign the value x+1 to the variable x
+        The level 2 conditional IF structure is over
+    The level 1 conditional IF ELSE structure is over
+The WHILE loop substatements are over

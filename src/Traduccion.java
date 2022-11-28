@@ -295,6 +295,5 @@ public class Traduccion extends JavaScriptParserBaseListener{
         }catch (Exception e){
             throw new RuntimeException(e);
         }
-
     }
 }

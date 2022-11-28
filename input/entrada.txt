@@ -3,6 +3,6 @@ for (x = 0; x < 9; x++) {
   str = str + z;
 
   if(x >= 10){
-      x = "yoooooo what's up buddy"
+      x = "What's up buddy"
   }
 }

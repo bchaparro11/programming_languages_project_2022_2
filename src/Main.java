@@ -65,6 +65,7 @@ public class Main {
                 while (line != null){
                     //Correciones sobre como se mencionan algunos caracteres
                     line = line.replace("*"," Times ");
+                    line = line.replace("/"," Divided By ");
                     line = line.replace("("," Opening Bracket ");
                     line = line.replace(")"," Closing Bracket ");
                     line = line.replace(">=", " Is Greater Than Or Equal To ");
@@ -73,6 +74,10 @@ public class Main {
                     line = line.replace("<", " Is Less Than ");
                     line = line.replace("==", " Is Equal to ");
                     line = line.replace("!=", " Is Not Equal To ");
+                    line = line.replace("++", " Increases By One ");
+                    line = line.replace("--", " Decreases By One ");
+                    line = line.replace("-"," Minus ");
+
                     //Tomar una pausa despues del IF
                     line = line.replace("IF", " IF, ");
                     // Speaks the given text

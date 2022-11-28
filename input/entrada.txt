@@ -1,5 +1,8 @@
-if (x != 9) {
-    zeta = 7
-} else {
-    zeta = 4
+for (x = 0; x < 9; x++) {
+  str = str + x;
+  str = str + z;
+
+  if(x >= 10){
+      x = "yoooooo what's up buddy"
+  }
 }

@@ -1,11 +1,8 @@
-let x = 2
-let y
+let x = 4
+const z = 5
 
-while (x < 3){
-    while (y < 2){
-        y = y + 1
-        for (let z = 1; z < 2; z++){
-            x = "Tola y maruja"
-        }
-    }
+while (x < 5){
+    console.log(z)
+    console.log("Hello world")
+    x = x + 1
 }

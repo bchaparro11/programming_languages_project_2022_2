@@ -3,6 +3,9 @@ public class Traduccion extends JavaScriptParserBaseListener{
     //Variable para contar espacios de indentacion en el texto de salida
     Integer contIndent = 0;
 
+    //Variable para saber si se encontro un console log
+    Boolean consoleLogFlag = false;
+
     // Declaracion de una variable
     @Override
     public void enterVariableDeclarationList(JavaScriptParser.VariableDeclarationListContext ctx){
@@ -476,6 +479,66 @@ public class Traduccion extends JavaScriptParserBaseListener{
             Escritor.getInstance().escribir(traduccion+"\n");
         }catch (Exception e){
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void enterMemberDotExpression(JavaScriptParser.MemberDotExpressionContext ctx){
+        String traduccion = new String();
+
+        //Calcular espacios de indentacion:
+        String indentSpaces = new String();
+        for (int i = 0; i < contIndent; i++) {
+            indentSpaces += " ";
+        }
+
+        //Verificar si tiene un identificador a la izquierda del punto
+        if(ctx.singleExpression() != null){
+            //Verificar si es un console.log()
+            if(ctx.singleExpression().getText().compareTo("console") == 0 && ctx.identifierName().getText().compareTo("log") == 0){
+                //Activar variable bool para indicar que estamos en un console.log
+                consoleLogFlag = true;
+
+                //Imprimir enunciado de la traduccion
+                traduccion += indentSpaces + "You print in console the ";
+
+                try{
+                    Escritor.getInstance().escribir(traduccion);
+                }catch (Exception e){
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }
+    }
+
+    //Entrar a argumentos de una funcion
+    @Override
+    public void enterArguments(JavaScriptParser.ArgumentsContext ctx){
+        String traduccion = new String();
+        //Verificar si se esta imprimiendo actualmente la traduccion de un console log
+        if(consoleLogFlag){
+
+            //Ver si es un string lo que se imprime
+            if(ctx.argument(0).getText().charAt(0) == '"'){
+                traduccion += "string ";
+            }
+
+            //Completar la cadena diciendo value
+            traduccion += "value ";
+
+            //Si se esta imprimiendo, terminar la frase
+            traduccion += ctx.argument(0).getText();
+
+            //Poner en false la bandera al terminar ese mensaje
+            consoleLogFlag = false;
+
+            //Escribir esto en el archivo de la traduccion
+            try{
+                Escritor.getInstance().escribir(traduccion+"\n");
+            }catch (Exception e){
+                throw new RuntimeException(e);
+            }
         }
     }
 }
